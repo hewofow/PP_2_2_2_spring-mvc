@@ -16,15 +16,17 @@ public class CarController {
     @Autowired
     CarService carService;
 
-    @GetMapping("/cars")
-    public String showCarsList(@RequestParam(value = "count", required = false, defaultValue = "0") int count, ModelMap model) {
-        List<Car> cars = new ArrayList<>();
+    List<Car> cars = new ArrayList<>();
+    {
         cars.add(new Car("LADA", "7171271", 1.8F));
         cars.add(new Car("Renault", "d12iod123e", 2.0F));
         cars.add(new Car("Chevrolet", "12ei12e", 2.2F));
         cars.add(new Car("Tesla", "12431231231sfsfsf312e", 3.5F));
         cars.add(new Car("Volkswagen", "0923523jug9", 2.3F));
+    }
 
+    @GetMapping("/cars")
+    public String showCarsList(@RequestParam(value = "count", required = false, defaultValue = "5") int count, ModelMap model) {
         model.addAttribute("cars", carService.getSubList(cars, count));
         return "cars";
     }
